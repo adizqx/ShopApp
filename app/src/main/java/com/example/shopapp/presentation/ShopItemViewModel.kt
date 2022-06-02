@@ -80,7 +80,7 @@ class ShopItemViewModel : ViewModel() {
             result = false
         }
         if (count <= 0) {
-            _errorInputCount.value = false
+            _errorInputCount.value = true
             result = false
         }
         return result

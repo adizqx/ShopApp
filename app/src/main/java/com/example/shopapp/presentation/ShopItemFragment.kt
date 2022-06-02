@@ -16,7 +16,10 @@ import com.example.shopapp.domain.ShopItem
 
 class ShopItemFragment : Fragment() {
     private lateinit var viewModel: ShopItemViewModel
-    lateinit var binding: FragmentShopItemBinding
+    private var _binding: FragmentShopItemBinding? = null
+    private val binding: FragmentShopItemBinding get() = _binding
+        ?: throw java.lang.RuntimeException("fragmentShopItemBinding == null")
+
     private lateinit var onEditingFinishedListener: OnEditingFinishedListener
 
     private var screenMode: String = MODE_UNKNOWN
@@ -40,35 +43,37 @@ class ShopItemFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentShopItemBinding.inflate(inflater, container, false)
+        _binding = FragmentShopItemBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[ShopItemViewModel::class.java]
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         addTextChangeListeners()
         launchRightMode()
         observeViewModel()
     }
 
     private fun observeViewModel() {
-        viewModel.errorInputCount.observe(viewLifecycleOwner) {
-            val messege = if (it) {
-                getString(R.string.error_input_count)
-            } else {
-                null
-            }
-            binding.tilCount.error = messege
-        }
-        viewModel.errorInputName.observe(viewLifecycleOwner) {
-            val messege = if (it) {
-                getString(R.string.error_input_name)
-            } else {
-                null
-            }
-            binding.tilName.error = messege
-        }
+//        viewModel.errorInputCount.observe(viewLifecycleOwner) {
+//            val messege = if (it) {
+//                getString(R.string.error_input_count)
+//            } else {
+//                null
+//            }
+//            binding.tilCount.error = messege
+//        }
+//        viewModel.errorInputName.observe(viewLifecycleOwner) {
+//            val messege = if (it) {
+//                getString(R.string.error_input_name)
+//            } else {
+//                null
+//            }
+//            binding.tilName.error = messege
+//        }
         viewModel.shouldCloseScreen.observe(viewLifecycleOwner) {
             onEditingFinishedListener.onEditingFinished()
         }
@@ -107,10 +112,10 @@ class ShopItemFragment : Fragment() {
 
     private fun launchEditMode() {
         viewModel.getShopItem(shopItemId)
-        viewModel.shopItem.observe(viewLifecycleOwner) {
-            binding.etName.setText(it.name)
-            binding.etCount.setText(it.count.toString())
-        }
+//        viewModel.shopItem.observe(viewLifecycleOwner) {
+//            binding.etName.setText(it.name)
+//            binding.etCount.setText(it.count.toString())
+//        }
         binding.saveButton.setOnClickListener {
             viewModel.editShopItem(
                 binding.etName.text?.toString(),
