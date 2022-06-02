@@ -1,13 +1,12 @@
 package com.example.shopapp.presentation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.shopapp.R
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.shopapp.databinding.FragmentChooseLevelBinding
-import com.example.shopapp.databinding.FragmentGameFinishedBinding
 import com.example.shopapp.domain.entity.Level
 
 class ChooseLevelFragment : Fragment() {
@@ -20,7 +19,7 @@ class ChooseLevelFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding =  FragmentChooseLevelBinding.inflate(inflater, container, false)
+        _binding = FragmentChooseLevelBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -40,27 +39,16 @@ class ChooseLevelFragment : Fragment() {
                 launchGameFragment(Level.HARD)
             }
         }
-
-
     }
 
     private fun launchGameFragment(level: Level) {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container,GameFragment.newInstance(level))
-            .addToBackStack(GameFragment.NAME).commit()
+        findNavController().navigate(
+            ChooseLevelFragmentDirections.actionChooseLevelFragmentToGameFragment(level))
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-
-        fun newInstance(): ChooseLevelFragment {
-            return ChooseLevelFragment()
-        }
     }
 
 }
