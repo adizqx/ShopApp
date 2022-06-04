@@ -6,18 +6,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.ListAdapter
 import com.example.shopapp.R
+import com.example.shopapp.model.ShopItemDbModel
 import com.example.shopapp.databinding.ItemShopDisabledBinding
 import com.example.shopapp.databinding.ItemShopEnabledBinding
-import com.example.shopapp.domain.ShopItem
 
-class ShopListAdapter : ListAdapter<ShopItem, ShopItemViewHolder>(ShopItemDiffCallback()) {
+class ShopListAdapter : ListAdapter<ShopItemDbModel, ShopItemViewHolder>(ShopItemDiffCallback()) {
 
-    //    var count = 0
-    var onShopItemLongClickListener: ((ShopItem) -> Unit)? = null
-    var onShopItemClickListener: ((ShopItem) -> Unit)? = null
+    var onShopItemLongClickListener: ((ShopItemDbModel) -> Unit)? = null
+    var onShopItemClickListener: ((ShopItemDbModel) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopItemViewHolder {
-//        Log.d("ShopListAdapter", "onCreateViewHolder, count: ${++count}")
         val layout = when (viewType) {
             VIEW_TYPE_DISABLED -> R.layout.item_shop_disabled
             VIEW_TYPE_ENABLED -> R.layout.item_shop_enabled

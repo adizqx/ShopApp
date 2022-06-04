@@ -4,15 +4,13 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopapp.R
 import com.example.shopapp.databinding.ActivityMainBinding
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class MainActivity : AppCompatActivity(),ShopItemFragment.OnEditingFinishedListener {
+class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedListener {
     private lateinit var viewModel: MainViewModel
     private lateinit var shopListAdapter: ShopListAdapter
     private lateinit var binding: ActivityMainBinding
@@ -30,18 +28,11 @@ class MainActivity : AppCompatActivity(),ShopItemFragment.OnEditingFinishedListe
         }
 
         binding.buttonAddShopItem.setOnClickListener {
-            if (isOnePaneMode()) {
-                val intent = ShopItemActivity.newIntentAddItem(this)
-                startActivity(intent)
-            } else {
-                launchFragment(ShopItemFragment.newInstanceAddItem())
-            }
+            val intent = ShopItemActivity.newIntentAddItem(this)
+            startActivity(intent)
         }
     }
 
-    private fun isOnePaneMode(): Boolean {
-        return binding.shopItemContainer == null
-    }
 
     private fun launchFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.shop_item_container, fragment)
@@ -90,12 +81,8 @@ class MainActivity : AppCompatActivity(),ShopItemFragment.OnEditingFinishedListe
 
     private fun setupClickListener() {
         shopListAdapter.onShopItemClickListener = {
-            if (isOnePaneMode()) {
-                val intent = ShopItemActivity.newIntentEditItem(this, it.id)
-                startActivity(intent)
-            } else {
-                launchFragment(ShopItemFragment.newInstanceEditItem(it.id))
-            }
+            val intent = ShopItemActivity.newIntentEditItem(this, it.id)
+            startActivity(intent)
         }
     }
 

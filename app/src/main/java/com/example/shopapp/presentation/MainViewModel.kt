@@ -2,39 +2,27 @@ package com.example.shopapp.presentation
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.shopapp.model.ShopItemDbModel
 import com.example.shopapp.data.ShopListRepositoryImpl
-import com.example.shopapp.domain.DeleteShopItemUseCase
-import com.example.shopapp.domain.EditShopItemUseCase
-import com.example.shopapp.domain.GetShopListUseCase
-import com.example.shopapp.domain.ShopItem
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = ShopListRepositoryImpl(application)
 
-    private val getShopListUseCase = GetShopListUseCase(repository)
-    private val deleteShopItemUseCase = DeleteShopItemUseCase(repository)
-    private val editShopItemUseCase = EditShopItemUseCase(repository)
+    val shopList = repository.getShopList()
 
-    val shopList = getShopListUseCase.getShopList()
-
-    fun deleteShopItem(shopItem: ShopItem) {
+    fun deleteShopItem(shopListDbModel: ShopItemDbModel) {
         viewModelScope.launch {
-            deleteShopItemUseCase.deleteShopItem(shopItem)
+            repository.deleteShopItem(shopListDbModel)
         }
     }
 
-    fun changeEnableState(shopItem: ShopItem) {
+    fun changeEnableState(shopListDbModel: ShopItemDbModel) {
         viewModelScope.launch {
-            val newItem = shopItem.copy(enabled = !shopItem.enabled)
-            editShopItemUseCase.editShopItem(newItem)
+            val newItem = shopListDbModel.copy(enabled = !shopListDbModel.enabled)
+            repository.editShopItem(newItem)
         }
     }
 

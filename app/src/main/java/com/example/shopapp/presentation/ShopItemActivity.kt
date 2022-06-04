@@ -6,13 +6,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.shopapp.R
 import com.example.shopapp.databinding.ActivityShopItemBinding
-import com.example.shopapp.domain.ShopItem
 
 class ShopItemActivity : AppCompatActivity(),ShopItemFragment.OnEditingFinishedListener {
     lateinit var binding: ActivityShopItemBinding
 
     private var screenMode = MODE_UNKNOWN
-    private var shopItemId = ShopItem.UNDEFINED_ID
+    private var shopItemId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +47,7 @@ class ShopItemActivity : AppCompatActivity(),ShopItemFragment.OnEditingFinishedL
             if (!intent.hasExtra(EXTRA_SHOP_ITEM_ID)) {
                 throw RuntimeException("Param shop item id is absent")
             }
-            shopItemId = intent.getIntExtra(EXTRA_SHOP_ITEM_ID, ShopItem.UNDEFINED_ID)
+            shopItemId = intent.getIntExtra(EXTRA_SHOP_ITEM_ID, 0)
         }
     }
 

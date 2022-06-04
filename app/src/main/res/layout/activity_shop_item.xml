@@ -7,5 +7,5 @@
     tools:layout="@layout/fragment_shop_item"
     tools:context=".presentation.ShopItemActivity"
     />
-    <!--    android:name="com.example.shopapp.presentation.ShopItemFragment"-->
+
 

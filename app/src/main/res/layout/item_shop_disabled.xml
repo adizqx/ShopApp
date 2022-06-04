@@ -3,7 +3,7 @@
     <data>
         <variable
             name="shopItem"
-            type="com.example.shopapp.domain.ShopItem" />
+            type="com.example.shopapp.model.ShopItemDbModel" />
     </data>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -21,7 +21,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#33BB86FC"
+        android:background="#caf0f8"
         android:orientation="horizontal"
         android:padding="16dp">
 
@@ -34,7 +34,7 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
-            tools:text="Салфетки" />
+            tools:text="Item" />
 
         <TextView
             android:id="@+id/tv_count"

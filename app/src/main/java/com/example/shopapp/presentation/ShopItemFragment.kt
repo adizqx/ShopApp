@@ -9,9 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.shopapp.R
 import com.example.shopapp.databinding.FragmentShopItemBinding
-import com.example.shopapp.domain.ShopItem
 
 
 class ShopItemFragment : Fragment() {
@@ -23,7 +21,7 @@ class ShopItemFragment : Fragment() {
     private lateinit var onEditingFinishedListener: OnEditingFinishedListener
 
     private var screenMode: String = MODE_UNKNOWN
-    private var shopItemId: Int = ShopItem.UNDEFINED_ID
+    private var shopItemId: Int = 0
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -138,10 +136,7 @@ class ShopItemFragment : Fragment() {
             if (!args.containsKey(SHOP_ITEM_ID)) {
                 throw RuntimeException("Param shop item id is absent")
             }
-            shopItemId = args.getInt(
-                SHOP_ITEM_ID,
-                ShopItem.UNDEFINED_ID
-            ) //UNDEFINED значение по умолчанию тут
+            shopItemId = args.getInt(SHOP_ITEM_ID, 0)
         }
     }
 
